@@ -1,0 +1,4 @@
+First Name,Last Name,Phone Number,Email,Billing Type,Billing Address,City,Zip Code,Country,Consumption,Total Bill
+Paula,Musuva,0722000111,user@gmail.com,R,R,222 Woodlands Lane,Nairobi,00800,Kenya,500.0,5434.0
+Yusuf,Abdul,0733111222,yusuf@gmail.com,R,R,33 Lane,Nairobi,00800,Kenya,700.0,7287.280000000001
+Maria,Kuria,0733222111,maria@email.com,R,L,Lane,Nairobi,00200,Kenya,750.0,15966.6

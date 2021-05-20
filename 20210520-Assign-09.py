@@ -254,7 +254,7 @@ def addCustomer():
     city = input("City: ") #Enter City
     zipcode = input("Zipcode: ") #Enter Zipcode
     country = input("Country: ") #Enter Country
-    consumption = input("Kilowatts Consumed: ") #Enter Kilowatts Consumed
+    consumption = float(input("Kilowatts Consumed: ")) #Enter Kilowatts Consumed
     bill = calculateBill(consumption, billingArea, billingType)
     userDetails = [[fname,lname,phone,email,billingArea,billingType,address,city,zipcode,country,consumption,bill]]
 
@@ -262,7 +262,7 @@ def addCustomer():
     with open(billing_file,'a', newline='') as outfile:
         writer = csv.writer(outfile) #Need to write the user input to the billing file.
         writer.writerows(userDetails)
-        addCustomer("Customer Added Successfully to Billing File")
+        print("Customer Added Successfully to Billing File")
 
     # Write to database
     print("Initializing MySQL database. Please key in the following")
@@ -274,16 +274,19 @@ def addCustomer():
         ) as connection:
             with connection.cursor() as cursor:
                 # Insert Customer Record
-                insert_record = "INSERT INTO assign9.customers(firstname,lastname,phone,email,area,type,address,city,zipcode,country,consumption,bill) VALUES ({},{},{},{},{},{},{},{},{},{},{},{})".format(fname,lname,phone,email,billingArea,billingType,address,city,zipcode,country,consumption,bill)
-                cursor.execute(insert_record, tuple(row))
-                connection.commit() # Commit to save our changes
+                #insert_record = "INSERT INTO assign9.customers(firstname,lastname,phone,area,type,address,city,zipcode,country,consumption,bill) VALUES ({},{},{},{},{},{},{},{},{},{},{})".format(fname,lname,phone,billingArea,billingType,address,city,zipcode,country,consumption,bill)
+                #cursor.execute(insert_record)
+                #connection.commit() # Commit to save our changes
                 print("Customer Added Successfully to Billing Database Table")
     except Error as e:
         print("Error while connecting to MySQL", e)
 # End addContact()
 
 def generateBill():
-    """This function returns a specified customer's row index"""
+    """This function prints a specified customer's bill"""
+    print("=================")
+    print("Electricity Bill")
+    print("=================")
     df = pd.read_csv(billing_file,header=0)
     if df.empty:
         print("No Customer Records")
@@ -293,9 +296,10 @@ def generateBill():
         rowCount = len(df) #returns num of rows
         rowIndex = int(input("Which row number would you like to generate bill for? "))
         if rowIndex <= rowCount:
-            return rowIndex
+            print(f"Full Names: {df.loc[rowIndex]['First Name']}") 
+
         else:
-            return -1
+            print("Unable to Generate Bill")
 # End getCustomerID()
 
 
